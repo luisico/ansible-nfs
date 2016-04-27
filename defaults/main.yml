@@ -1,0 +1,12 @@
+---
+nfs_version: 4     # 3, 4
+nfs_name: default
+nfs_server: localhost
+nfs_clients: []
+nfs_share: /tmp
+nfs_share_opts: ro,sync,root_squash
+nfs_share_user: root
+nfs_share_group: root
+nfs_share_mode: 0750
+nfs_mount_point: /mnt
+nfs_mount_opts: ro,bg,soft,intr,proto=tcp

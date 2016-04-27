@@ -1,0 +1,12 @@
+---
+- name: Install nfs package
+  yum: name={{item}} state=present
+  with_items:
+    - nfs-utils
+    - quota
+
+- include: server.yml
+  when: ansible_fqdn == nfs_server
+
+- include: client.yml
+  when: ansible_fqdn in nfs_clients

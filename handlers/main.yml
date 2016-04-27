@@ -1,0 +1,12 @@
+---
+- name: Reload exports
+  command: exportfs -a
+
+- name: Restart rpcbind
+  service: name=rpcbind state=restarted
+
+- name: Restart nfs
+  service: name=nfs state=restarted
+
+- name: Restart nfslock
+  service: name=nfslock state=restarted
