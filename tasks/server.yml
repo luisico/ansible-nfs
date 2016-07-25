@@ -1,6 +1,6 @@
 ---
 - name: Configure nfs
-  template: dest=/etc/sysconfig/nfs src=sysconfig.j2 mode=0644
+  template: dest=/etc/sysconfig/nfs src=sysconfig.j2 owner=root group=root mode=0644
   notify:
     - Restart rpcbind
     - Restart nfs
@@ -17,9 +17,9 @@
   file: path={{nfs_share}} state=directory mode={{nfs_share_mode}} owner={{nfs_share_user}} group={{nfs_share_group}} recurse=no
 
 - name: Ensure exports.d is present
-  file: path=/etc/exports.d state=directory mode=0755
+  file: path=/etc/exports.d state=directory owner=root group=root mode=0755
 
 - name: Export to clients
-  template: dest=/etc/exports.d/{{nfs_name}}.exports src=exports.j2 mode=0644
+  template: dest=/etc/exports.d/{{nfs_name}}.exports src=exports.j2 owner=root group=root mode=0644
   notify:
     - Reload exports

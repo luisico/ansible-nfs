@@ -6,7 +6,7 @@
   when: nfs_version == 3
 
 - name: Make sure nfs mount point is present
-  file: path={{nfs_mount_point}} state=directory
+  file: path={{nfs_mount_point}} state=directory owner=root group=root mode=0755
 
 - name: Mount common directory from qmaster
   mount: name={{nfs_mount_point}} src={{nfs_server}}:{{nfs_share}} fstype=nfs opts={{nfs_mount_opts}},vers={{nfs_version}} state=mounted
