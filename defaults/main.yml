@@ -1,12 +1,35 @@
 ---
-nfs_version: 4     # 3, 4
-nfs_name: default
-nfs_server: localhost
-nfs_clients: []
-nfs_share: /tmp
-nfs_share_opts: ro,sync,root_squash
-nfs_share_user: root
-nfs_share_group: root
-nfs_share_mode: 0750
-nfs_mount_point: /mnt
-nfs_mount_opts: ro,bg,soft,intr,proto=tcp
+# Use role in client mode
+nfs_mode: client
+
+# List of NFS mounts in client mode
+# Default values are taken from the role variables prefixed with `nfs_default_` (see below). Example:
+# nfs_mounts:
+#   - server: my.host
+#     export_dir: /exported/path
+#     mount_point: /mnt
+#   - server: other.host
+nfs_mounts: []
+
+# List of NFS exports in server mode. Example:
+# Default values are taken from the role variables prefixed with `nfs_default_` (see below) except
+# for a mandatory export name. Example:
+# nfs_exports:
+#   - name: export1                                  # Mandatory
+#     clients: [host.client1, host.client2]
+#     export_dir: /exported/path
+#   - name: export2
+nfs_exports: []
+
+# Default NFS options for exports/mounts
+# Options can be used in server [S], client [C] or both modes [SC]
+nfs_default_version: 4                               # [C]  Supported NFS versions: 3 and 4
+nfs_default_server: localhost                        # [C]  Server to mount from
+nfs_default_clients: []                              # [S]  List of clients to export to
+nfs_default_export_dir: /tmp                         # [SC] Directory exported by server
+nfs_default_export_opts: ro,sync,root_squash         # [S]  Export options on server
+nfs_default_export_user: root                        # [S]  Export as user
+nfs_default_export_group: root                       # [S]  Export as group
+nfs_default_export_mode: u=rwX,g=rX,o=                   # [S]  Export permissions
+nfs_default_mount_point: /mnt                        # [C]  Mount point on client
+nfs_default_mount_opts: ro,bg,soft,intr,proto=tcp    # [C]  Mount options on client

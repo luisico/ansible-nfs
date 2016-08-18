@@ -1,12 +1,18 @@
 ---
-- name: Install nfs package
+- name: Install NFS package
   yum: name={{item}} state=present
   with_items:
     - nfs-utils
     - quota
 
 - include: server.yml
-  when: ansible_fqdn == nfs_server
+  when: nfs_mode == 'server'
+  with_items: '{{nfs_exports}}'
+  loop_control:
+    loop_var: export
 
 - include: client.yml
-  when: ansible_fqdn in nfs_clients
+  when: nfs_mode == 'client'
+  with_items: '{{nfs_mounts}}'
+  loop_control:
+    loop_var: mount

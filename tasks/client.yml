@@ -1,10 +1,10 @@
 ---
-- name: Enable nfs v3 related services
+- name: Enable NFS v3 related services
   service: name=rpcbind state=started enabled=yes
-  when: nfs_version == 3
+  when: mount.version | default(nfs_default_version) == 3
 
-- name: Make sure nfs mount point is present
-  file: path={{nfs_mount_point}} state=directory owner=root group=root mode=0755
+- name: Make sure mount point is present
+  file: path={{mount.mount_point | default(nfs_default_mount_point)}} state=directory owner=root group=root mode=0755
 
-- name: Mount shared filesystem
-  mount: name={{nfs_mount_point}} src={{nfs_server}}:{{nfs_share}} fstype=nfs opts={{nfs_mount_opts}},vers={{nfs_version}} state=mounted
+- name: Mount exported filesystem
+  mount: name={{mount.mount_point | default(nfs_default_mount_point)}} src={{mount.server | default(nfs_default_server)}}:{{mount.export_dir | default(nfs_default_export_dir)}} fstype=nfs opts={{mount.mount_opts | default(nfs_default_mount_opts)}},vers={{mount.version | default(nfs_default_version)}} state=mounted

@@ -1,3 +1,3 @@
-{% for host in nfs_clients %}
-{{nfs_share}} {{host}}({{nfs_share_opts}})
+{% for host in export.clients | default(nfs_default_clients) %}
+{{export.export_dir | default(nfs_default_export_dir)}} {{host}}({{export.export_opts | default(nfs_default_export_opts)}})
 {% endfor %}
