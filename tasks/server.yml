@@ -14,12 +14,12 @@
     - nfslock
 
 - name: Ensure NFS export is present
-  file: path={{export.export_dir | default(nfs_default_export_dir)}} state=directory mode={{export.export_mode | default(nfs_default_export_mode)}} owner={{export.export_user | default(nfs_default_export_user)}} group={{export.export_group | default(nfs_default_export_group)}} recurse=no
+  file: path={{nfs_export.export_dir | default(nfs_default_export_dir)}} state=directory mode={{nfs_export.export_mode | default(nfs_default_export_mode)}} owner={{nfs_export.export_user | default(nfs_default_export_user)}} group={{nfs_export.export_group | default(nfs_default_export_group)}} recurse=no
 
 - name: Ensure exports.d is present
   file: path=/etc/exports.d state=directory owner=root group=root mode=0755
 
 - name: Export to clients
-  template: dest=/etc/exports.d/{{export.name | default(nfs_default_name)}}.exports src=exports.j2 owner=root group=root mode=0644
+  template: dest=/etc/exports.d/{{nfs_export.name | default(nfs_default_name)}}.exports src=exports.j2 owner=root group=root mode=0644
   notify:
     - Reload exports
