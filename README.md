@@ -30,26 +30,26 @@ Example:
 ```
 - hosts: fileserver
   roles:
-  - role: nfs
-    nfs_exports:
-      - name: export1
-        clients: '{{groups['fileserver-clients']}}'
-        export_dir: /dir/to/export1
+    - role: nfs
+      nfs_exports:
+        - name: export1
+          clients: '{{groups['fileserver-clients']}}'
+          export_dir: /dir/to/export1
 
 - hosts: fileserver-clients
   roles:
-  - role: nfs
-    nfs_mounts:
-      - server: fileserver
-        export_dir: /dir/to/export1
-        mount_point: /mnt/mount1
+    - role: nfs
+      nfs_mounts:
+        - server: fileserver
+          export_dir: /dir/to/export1
+          mount_point: /mnt/mount1
 ```
 
 TODO
 ----
 - Configure quotas.
 - Configure autofs?
-- Export directory permission only work on a single level directory, ie exported directories with subdirs will all get the same permissions, which might be too restrictive.
+- Export directory permission only works on a single level directory, ie exported directories with subdirs will all get the same permissions, which might be too restrictive.
 - Use nfs_version on server.
 
 Licence
@@ -58,4 +58,7 @@ Licensed under [CC-BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
 
 Author Information
 ------------------
-Luis Gracia <luis.gracia@ebi.ac.uk>
+Luis Gracia while at [EMBL-EBI](http://www.ebi.ac.uk/):
+- luis.gracia [at] ebi.ac.uk
+- GitHub at [luisico](https://github.com/luisico)
+- Galaxy at [luisico](https://galaxy.ansible.com/luisico)
