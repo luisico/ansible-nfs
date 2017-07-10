@@ -2,7 +2,7 @@
 galaxy_info:
   author: Luis Gracia
   description: Configure multiple NFS export and mount points
-  license: CC-BY-SA 4.0
+  license: MIT
   min_ansible_version: 2.1
   platforms:
     - name: EL
