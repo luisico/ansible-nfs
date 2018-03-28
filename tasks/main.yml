@@ -5,13 +5,13 @@
     - nfs-utils
     - quota
 
-- include: server.yml
+- include_tasks: server.yml
   when: nfs_mode == 'server'
   with_items: '{{nfs_exports}}'
   loop_control:
     loop_var: nfs_export
 
-- include: client.yml
+- include_tasks: client.yml
   when: nfs_mode == 'client'
   with_items: '{{nfs_mounts}}'
   loop_control:
