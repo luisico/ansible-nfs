@@ -4,7 +4,7 @@
   when: nfs_mount.version | default(nfs_default_version) == 3
 
 - name: Make sure mount point is present
-  file: path={{nfs_mount.mount_point | default(nfs_default_mount_point)}} state=directory owner=root group=root mode=0755
+  file: path={{nfs_mount.mount_point | default(nfs_default_mount_point)}} state=directory owner={{nfs_mount.owner | default(nfs_default_mount_owner)}}  group={{nfs_mount.group | default(nfs_default_mount_group)}} mode={{nfs_mount.mode | default(nfs_default_mount_mode)}}
 
 - name: Mount exported filesystem
   mount: name={{nfs_mount.mount_point | default(nfs_default_mount_point)}} src={{nfs_mount.server | default(nfs_default_server)}}:{{nfs_mount.export_dir | default(nfs_default_export_dir)}} fstype=nfs opts={{nfs_mount.mount_opts | default(nfs_default_mount_opts)}},vers={{nfs_mount.version | default(nfs_default_version)}} state=mounted
